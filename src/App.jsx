@@ -3,7 +3,7 @@ import AppRoutes from "../src/routes";
 
 function App() {
   return (
-    <div className="max-w-screen-2xl">
+    <div className="max-w-screen-2xl relative">
       <AppRoutes />
     </div>
   );
