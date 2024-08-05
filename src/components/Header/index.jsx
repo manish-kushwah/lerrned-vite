@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { UserContext } from "../../context/userContext";
 import logo from "../../assets/letswhy_logo.svg"; // import your logo image
 import Login from "../../views/login";
@@ -21,14 +21,23 @@ const Header = () => {
   };
 
   const handleLogout = () => {
-    alert("signing off");
     setUser(null);
+    window.location.href = "/";
   };
+
+  useEffect(() => {
+    if (window.location.pathname != "/") {
+      const data = localStorage.getItem("userData");
+      setUser(JSON.parse(data));
+    }
+  }, []);
 
   return (
     <header className="sticky top-0 left-0 w-full flex justify-between items-center px-16 py-2 z-[999]">
       <img src={logo} alt="Logo" className="h-12" />
-      {user ? (
+      {!!user ? (
+        <UserProfile user={user} onLogout={handleLogout} />
+      ) : (
         <span className="grid gap-8 grid-flow-col place-items-center">
           <Login
             openModal={isLoginModalVisible}
@@ -41,8 +50,6 @@ const Header = () => {
             toggleSignupModal={toggleSignupModal}
           />
         </span>
-      ) : (
-        <UserProfile user={user} onLogout={handleLogout} />
       )}
     </header>
   );

@@ -17,6 +17,7 @@ module.exports = {
     "no-unused-vars": "off",
     "react/prop-types": "off",
     "no-unreachable": "off",
-    "no-debugger": "off"
+    "no-debugger": "off",
+    "no-extra-boolean-cast":"off"
   },
 };

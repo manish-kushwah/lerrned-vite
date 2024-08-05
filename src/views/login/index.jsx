@@ -16,6 +16,7 @@ const Login = (props) => {
     let response = await loginApiCall();
     setTimeout(() => {
       setLoading(false);
+      window.localStorage.setItem("userData", JSON.stringify(response));
       setUser(response);
       message.success("Login successful!");
       window.location.href = "/dashboard";
