@@ -6,6 +6,7 @@ import {
   UserOutlined,
   MenuUnfoldOutlined,
   MenuFoldOutlined,
+  VideoCameraOutlined,
 } from "@ant-design/icons";
 import { Line, Pie, Bar } from "@ant-design/charts";
 import MainHeader from "../../components/Header";
@@ -13,7 +14,7 @@ import MainHeader from "../../components/Header";
 const { Header, Sider, Content } = Layout;
 
 const Dashboard = () => {
-  const [collapsed, setCollapsed] = useState(true);
+  const [collapsed, setCollapsed] = useState(false);
 
   const toggle = () => {
     setCollapsed(!collapsed);
@@ -65,16 +66,8 @@ const Dashboard = () => {
     data: pieData,
     angleField: "value",
     colorField: "type",
-    radius: 0.8,
-    innerRadius: 0.5,
-  };
-
-  const barConfig = {
-    data: barData,
-    xField: "value",
-    yField: "type",
-    seriesField: "type",
-    barStyle: { radius: [2, 2, 0, 0] },
+    radius: 0.7,
+    innerRadius: 0.4,
   };
 
   return (
@@ -97,6 +90,13 @@ const Dashboard = () => {
             >
               Profile
             </Menu.Item>
+            <Menu.Item
+              key="3"
+              icon={<VideoCameraOutlined />}
+              onClick={() => (window.location.href = "/connect")}
+            >
+              Connect
+            </Menu.Item>
           </Menu>
         </Sider>
         <Layout className="bg-[#FFFFFF]">
@@ -113,11 +113,6 @@ const Dashboard = () => {
               <Col span={8}>
                 <Card title="Distribution - Pie Chart" size="small">
                   <Pie {...pieConfig} />
-                </Card>
-              </Col>
-              <Col span={8}>
-                <Card title="Category - Bar Chart" size="small">
-                  <Bar {...barConfig} />
                 </Card>
               </Col>
             </Row>
