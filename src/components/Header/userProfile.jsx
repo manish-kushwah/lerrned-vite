@@ -1,9 +1,15 @@
 import React, { useState } from "react";
 import { Avatar, Popover, Button } from "antd";
 import { UserOutlined } from "@ant-design/icons";
+import { useAuth0 } from "@auth0/auth0-react";
 
 const UserProfile = ({ user, onLogout }) => {
   const [visible, setVisible] = useState(false);
+  const { user: userData, isAuthenticated, logout } = useAuth0();
+
+  if (!isAuthenticated) {
+    return null;
+  }
 
   const handleVisibleChange = (visible) => {
     setVisible(visible);
@@ -16,8 +22,8 @@ const UserProfile = ({ user, onLogout }) => {
 
   const popoverContent = (
     <div>
-      <p>Hey, {user?.username}</p>
-      <Button type="link" onClick={handleLogout}>
+      <p>Welcome, {userData.name}</p>
+      <Button type="link" onClick={() => logout({ returnTo: window.location.origin })}>
         Logout
       </Button>
     </div>
