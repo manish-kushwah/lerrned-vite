@@ -10,11 +10,12 @@ const Header = () => {
   const { user, setUser } = useContext(UserContext);
   const [isLoginModalVisible, setIsLoginModalVisible] = useState(false);
   const [isSignupModalVisible, setIsSignupModalVisible] = useState(false);
-  const { user: userData, isAuthenticated, logout } = useAuth0();
+  const { user: userData, isAuthenticated, logout, loginWithRedirect } = useAuth0();
 
   const toggleLoginModal = () => {
-    setIsLoginModalVisible(!isLoginModalVisible);
+    // setIsLoginModalVisible(!isLoginModalVisible);
     setIsSignupModalVisible(false);
+    loginWithRedirect();
   };
 
   const toggleSignupModal = () => {
