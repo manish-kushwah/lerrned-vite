@@ -3,28 +3,29 @@ import { UserContext } from "../../context/userContext";
 import { Button, Form, Input, message, Modal } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import { loginApiCall } from "../../apis/auth";
+import { useAuth0 } from "@auth0/auth0-react";
 
 const Login = (props) => {
   const { openModal, toggleLoginModal, toggleSignupModal } = props;
   const { user, setUser } = useContext(UserContext);
   const [loading, setLoading] = useState(false);
   const [form] = Form.useForm();
+  const { user: userData, loginWithRedirect } = useAuth0();
 
   const onFinish = async () => {
     setLoading(true);
-    //dummy api call
-    let response = await loginApiCall();
+    loginWithRedirect();
     setTimeout(() => {
       setLoading(false);
-      window.localStorage.setItem("userData", JSON.stringify(response));
-      setUser(response);
+      window.localStorage.setItem("userData", JSON.stringify(userData));
+      setUser(userData);
       message.success("Login successful!");
       window.location.href = "/dashboard";
     }, 1000);
   };
 
   const onFinishFailed = () => {
-    console.log("Login failed!");
+    message.error("Login failed!");
   };
 
   return (
